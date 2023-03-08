@@ -7,7 +7,7 @@ on:
       - implement_deploy
 
 jobs:
-  detekt:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: "checkout"
@@ -21,4 +21,9 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Execute Gradle build
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PRIVATE_PASSWORD: ${{ secrets.GPG_PRIVATE_PASSWORD }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         run: ./gradlew publishAllPublicationsToMavenRepository
