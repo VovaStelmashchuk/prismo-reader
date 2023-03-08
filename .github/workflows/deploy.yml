@@ -1,8 +1,10 @@
 name: Deploy to Maven Central
+
 on:
-  branch:
-    - main
-    - implement_deploy
+  push:
+    branches:
+      - main
+      - implement_deploy
 
 jobs:
   detekt:
