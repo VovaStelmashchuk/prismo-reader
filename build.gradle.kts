@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "org.mixdrinks"
-version = "0.3"
+version = "0.4"
 
 repositories {
     mavenCentral()
@@ -43,10 +43,6 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting
-        val nativeMain by getting
-        val nativeTest by getting
     }
 }
 

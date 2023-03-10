@@ -1,4 +1,4 @@
-package dto
+package org.mixdrinks.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
