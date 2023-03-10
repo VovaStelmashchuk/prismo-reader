@@ -12,4 +12,5 @@ value class ToolId(val id: Int)
 data class ToolDto(
     @SerialName("id") val id: ToolId,
     @SerialName("name") val name: String,
+    @SerialName("about") val about: String,
 )

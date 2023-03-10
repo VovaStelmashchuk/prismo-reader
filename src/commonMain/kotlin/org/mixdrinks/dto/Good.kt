@@ -12,6 +12,5 @@ value class GoodId(val id: Int)
 data class GoodDto(
     @SerialName("id") val id: GoodId,
     @SerialName("name") val name: String,
-    @SerialName("amount") val amount: Int,
-    @SerialName("unit") val unit: String,
+    @SerialName("about") val about: String,
 )

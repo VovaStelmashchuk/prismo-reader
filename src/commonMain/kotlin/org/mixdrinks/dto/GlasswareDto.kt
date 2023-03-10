@@ -14,4 +14,6 @@ data class GlasswareDto(
     val id: GlasswareId,
     @SerialName("name")
     val name: String,
+    @SerialName("about")
+    val about: String,
 )

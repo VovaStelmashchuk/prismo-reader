@@ -18,34 +18,15 @@ class CocktailDtoTest {
               ],
               "goods": [
                 {
-                  "id": 1,
-                  "name": "Test",
-                  "amount": 1,
-                  "unit": "Test"
+                  "goodId": 1,
+                  "amount": 50,
+                  "unit": "ml"
                 }
               ],
-              "tools": [
-                {
-                  "id": 1,
-                  "name": "Test"
-                }
-              ],
-              "tags": [
-                {
-                  "id": 1,
-                  "name": "Test"
-                }
-              ],
-              "tastes": [
-                {
-                  "id": 1,
-                  "name": "Test"
-                }
-              ],
-              "glassware": {
-                "id": 1,
-                "name": "Test"
-              }
+              "tools": [1],
+              "tags": [1],
+              "tastes": [1],
+              "glassware":1
             }
         """
         assertEquals(
@@ -54,11 +35,11 @@ class CocktailDtoTest {
                     id = CocktailId(1),
                     name = "Test",
                     receipt = listOf("Test"),
-                    goods = listOf(GoodDto(1, "Test", 1, "Test")),
-                    tools = listOf(ToolDto(ToolId(1), "Test")),
-                    tags = listOf(TagDto(TagId(1), "Test")),
-                    tastes = listOf(TagDto(TagId(1), "Test")),
-                    glassware = ToolDto(ToolId(1), "Test"),
+                    goods = listOf(GoodRelationDto(GoodId(1), 50, "ml")),
+                    tools = listOf(ToolId(1)),
+                    tags = listOf(TagId(1)),
+                    tastes = listOf(TasteId(1)),
+                    glassware = GlasswareId(1),
                 )
             ), json.replace('\n', ' ')
                 .replace(" ", "")
@@ -74,11 +55,11 @@ class CocktailDtoTest {
                     id = CocktailId(1),
                     name = "Test",
                     receipt = listOf("Test"),
-                    goods = listOf(GoodDto(1, "Test", 1, "Test")),
-                    tools = listOf(ToolDto(ToolId(1), "Test")),
-                    tags = listOf(TagDto(TagId(1), "Test")),
-                    tastes = listOf(TagDto(TagId(1), "Test")),
-                    glassware = ToolDto(ToolId(1), "Test"),
+                    goods = listOf(GoodRelationDto(GoodId(1), 50, "ml")),
+                    tools = listOf(ToolId(1)),
+                    tags = listOf(TagId(1)),
+                    tastes = listOf(TasteId(1)),
+                    glassware = GlasswareId(1),
                 )
             ), """
             {
@@ -89,34 +70,15 @@ class CocktailDtoTest {
               ],
               "goods": [
                 {
-                  "id": 1,
-                  "name": "Test",
-                  "amount": 1,
-                  "unit": "Test"
+                  "goodId": 1,
+                  "amount": 50,
+                  "unit": "ml"
                 }
               ],
-              "tools": [
-                {
-                  "id": 1,
-                  "name": "Test"
-                }
-              ],
-              "tags": [
-                {
-                  "id": 1,
-                  "name": "Test"
-                }
-              ],
-              "tastes": [
-                {
-                  "id": 1,
-                  "name": "Test"
-                }
-              ],
-              "glassware": {
-                "id": 1,
-                "name": "Test"
-              }
+              "tools": [1],
+              "tags": [1],
+              "tastes": [1],
+              "glassware":1
             }
         """
                 .replace('\n', ' ')
