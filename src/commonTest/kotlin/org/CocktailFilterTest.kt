@@ -171,6 +171,29 @@ class CocktailFilterTest {
         )
     }
 
+    @Test
+    fun `Verify cocktails filter case filer group has one filter`() {
+        val cocktailSelector = CocktailSelector(
+            listOf(
+                createFilterGroup(1) {
+                    add(createFilterItem(8, listOf(100, 101)))
+                },
+                createFilterGroup(2) {
+                    add(createFilterItem(18, listOf(100, 101)))
+                }
+            )
+        )
+
+        assertEquals(
+            setOf(CocktailId(100), CocktailId(101)),
+            cocktailSelector.getCocktailIds(
+                mapOf(
+                    FilterGroupId(1) to listOf(FilterId(8)),
+                )
+            )
+        )
+    }
+
     private fun createFilterItem(filterId: Int, cocktailIds: List<Int>): Filter {
         return Filter(
             FilterId(filterId),

@@ -21,17 +21,25 @@ class CocktailSelector(
 
     fun getCocktailIds(searchParams: Map<FilterGroupId, List<FilterId>>): Set<CocktailId> {
         require(filterMetaInfo.isNotEmpty()) { "Filters must not be empty" }
+        searchParams.forEach {
+            require(it.value.isNotEmpty()) { "Filter group ${it.key} must not be empty" }
+        }
 
         return searchParams
             .map { (filterGroupId, filterIds) ->
                 val filterGroup = filterMetaInfo.find { it.id == filterGroupId } ?: return@map emptyList<CocktailId>()
-                val filters = filterGroup.filters.filter { filterIds.contains(it.id) }
-
-                filters
-                    .map { it.cocktailIds }
-                    .reduce { acc, cocktailIds ->
-                        acc.intersect(cocktailIds)
+                val selectedFilters = filterGroup.filters.filter { filterIds.contains(it.id) }
+                when (selectedFilters.size) {
+                    1 -> {
+                        selectedFilters.first().cocktailIds
                     }
+
+                    else -> selectedFilters
+                        .map { it.cocktailIds }
+                        .reduce { acc, cocktailIds ->
+                            acc.intersect(cocktailIds)
+                        }
+                }
             }
             .reduce { acc, cocktailIds ->
                 acc.intersect(cocktailIds.toSet())
