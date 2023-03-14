@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "org.mixdrinks"
-version = "0.5.0"
+version = "0.6.0"
 
 repositories {
     mavenCentral()
@@ -46,6 +46,9 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+        //Do not remove this lines this breaks the maven publish
+        val iosMain by getting
+        val iosTest by getting
     }
 }
 
