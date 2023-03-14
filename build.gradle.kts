@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "org.mixdrinks"
-version = "0.4.1"
+version = "0.5.0"
 
 repositories {
     mavenCentral()
@@ -23,6 +23,9 @@ kotlin {
             useJUnitPlatform()
         }
     }
+    ios()
+    iosSimulatorArm64()
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
