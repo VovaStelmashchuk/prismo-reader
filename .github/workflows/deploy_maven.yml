@@ -17,6 +17,9 @@ jobs:
           java-version: 11
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+      - name: Get next version
+        id: get_next_version
+        uses: thenativeweb/get-next-version@main
       - name: Write sha to evn as MIX_DRINKS_CORE_VERSION
         id: github-sha
         run: echo "MIX_DRINKS_CORE_VERSION=`echo "0.7.2-${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_ENV
