@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "org.mixdrinks"
-version = "0.7.1"
+version = System.getenv("MIX_DRINKS_CORE_VERSION")
 
 repositories {
     mavenCentral()
