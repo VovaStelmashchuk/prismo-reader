@@ -1,9 +1,6 @@
 name: Deploy to Maven Central
 
-on:
-  push:
-    branches:
-      - main
+on: pull_request
 
 jobs:
   deploy:
@@ -20,9 +17,11 @@ jobs:
       - name: Get next version
         id: get_next_version
         uses: thenativeweb/get-next-version@main
+        run: |
+          echo ${{ steps.get_next_version.outputs.version }}
       - name: Write sha to evn as MIX_DRINKS_CORE_VERSION
         id: github-sha
-        run: echo "MIX_DRINKS_CORE_VERSION=`echo "0.7.2-${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_ENV
+        run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.get_next_version.outputs.version }}-`echo "${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_ENV
       - name: Execute Gradle build
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
