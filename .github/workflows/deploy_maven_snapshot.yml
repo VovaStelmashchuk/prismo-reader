@@ -23,9 +23,7 @@ jobs:
     runs-on: macos-12
     steps:
       - name: Print MIX_DRINKS_CORE_VERSION
-        env:
-          TEST_MIX_DRINKS_CORE_VERSION: ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
-        run: echo $TEST_MIX_DRINKS_CORE_VERSION
+        run: echo $MIX_DRINKS_CORE_VERSION
       - name: "checkout"
         uses: actions/checkout@v3
       - uses: actions/setup-java@v3
