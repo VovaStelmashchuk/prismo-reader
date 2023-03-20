@@ -10,7 +10,7 @@ object ImageUrlCreators {
   enum class Size(
       val path: String,
   ) {
-    SIZE_320("320"), SIZE_400("400"), SIZE_560("560")
+    SIZE_320("320"), SIZE_400("400"), SIZE_560("560"), ORIGIN("origin")
   }
 
   fun createUrl(cocktailId: CocktailId, size: Size): String {
