@@ -23,3 +23,20 @@ DTO об'єкти, промарковані анотаціями для сері
 ---
 
 Бібліотека є на maven central.
+
+#### Install
+##### kotlin Multiplatfrom
+```kotlin
+val commonMain by getting {
+  dependencies {
+    implementation("org.mixdrinks:core:0.8.1-777512bd")
+  }
+}
+```
+
+##### Android / JVM
+```kotlin
+dependencies {
+  implementation("org.mixdrinks:core-jvm:0.8.1-777512bd")
+}
+```
