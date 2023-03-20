@@ -24,8 +24,6 @@ kotlin {
         }
     }
     ios()
-    iosX64()
-    iosArm64()
     iosSimulatorArm64()
 
     val hostOs = System.getProperty("os.name")
@@ -51,8 +49,6 @@ kotlin {
         //Do not remove this lines this breaks the maven publish
         val iosMain by getting
         val iosTest by getting
-        val iosX64Main by getting
-        val iosArm64Main by getting
     }
 }
 

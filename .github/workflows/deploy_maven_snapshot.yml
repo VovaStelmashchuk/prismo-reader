@@ -2,7 +2,7 @@ name: Deploy to Maven Central snapshot
 on: pull_request
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: macos-12
     steps:
       - name: "checkout"
         uses: actions/checkout@v3
