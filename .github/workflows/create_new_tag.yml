@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  release:
+  tag_create:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,4 +20,33 @@ jobs:
       - uses: actions-ecosystem/action-push-tag@v1
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
-          message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+          message: 'Release ${{ steps.bump-semver.outputs.new_version }}'
+      - name: "Set output"
+        id: set-output
+        run: echo "mix_drinks_core_version=${{ steps.bump-semver.outputs.new_version }}" >> $GITHUB_OUTPUT
+      - name: "Print output"
+        run: echo ${{ steps.set-output.outputs.mix_drinks_core_version }}
+    outputs:
+      output_write_mix_drinks_code_version: ${{ steps.set-output.outputs.mix_drinks_core_version }}
+  deploy:
+    needs: [ tag_create ]
+    runs-on: macos-12
+    steps:
+      - name: Print MIX_DRINKS_CORE_VERSION
+        run: echo ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
+      - name: "checkout"
+        uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Execute Gradle build
+        env:
+          MIX_DRINKS_CORE_VERSION: ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PRIVATE_PASSWORD: ${{ secrets.GPG_PRIVATE_PASSWORD }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+        run: ./gradlew publishAllPublicationsToMavenRepository
