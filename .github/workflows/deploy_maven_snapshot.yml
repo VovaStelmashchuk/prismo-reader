@@ -14,6 +14,8 @@ jobs:
         uses: thenativeweb/get-next-version@main
       - name: Print version
         run: echo ${{ steps.get_next_version.outputs.version }}
+      - name: Write sha to evn as MIX_DRINKS_CORE_VERSION
+        run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.get_next_version.outputs.version }}-`echo "${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_ENV
   deploy:
     runs-on: macos-12
     steps:
@@ -25,8 +27,6 @@ jobs:
           java-version: 11
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Write sha to evn as MIX_DRINKS_CORE_VERSION
-        run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.get_next_version.outputs.version }}-`echo "${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_ENV
       - name: Execute Gradle build
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
