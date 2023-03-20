@@ -33,7 +33,7 @@ jobs:
     runs-on: macos-12
     steps:
       - name: Print MIX_DRINKS_CORE_VERSION
-        run: echo ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
+        run: echo ${{ needs.tag_create.outputs.output_write_mix_drinks_code_version }}
       - name: "checkout"
         uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -44,7 +44,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
         env:
-          MIX_DRINKS_CORE_VERSION: ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
+          MIX_DRINKS_CORE_VERSION: ${{ needs.tag_create.outputs.output_write_mix_drinks_code_version }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PRIVATE_PASSWORD: ${{ secrets.GPG_PRIVATE_PASSWORD }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
