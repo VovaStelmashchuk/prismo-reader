@@ -24,8 +24,6 @@ jobs:
     runs-on: macos-12
     steps:
       - name: Print MIX_DRINKS_CORE_VERSION
-        run: echo $MIX_DRINKS_CORE_VERSION
-      - name: Print MIX_DRINKS_CORE_VERSION_2
         run: echo ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
       - name: "checkout"
         uses: actions/checkout@v3
