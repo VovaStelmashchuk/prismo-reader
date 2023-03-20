@@ -14,7 +14,7 @@ jobs:
           level: minor
       - name: "Set output"
         id: set-output
-        run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.get_next_version.outputs.version }}-`echo "${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_OUTPUT
+        run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.bump-semver.outputs.new_version }}-`echo "${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_OUTPUT
     outputs:
       output_write_mix_drinks_code_version: ${{ steps.set-output.outputs.MIX_DRINKS_CORE_VERSION }}
   deploy:
