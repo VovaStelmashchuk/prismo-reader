@@ -1,8 +1,5 @@
-package org
+package org.mixdrinks.domain
 
-import org.mixdrinks.domain.CocktailSelector
-import org.mixdrinks.domain.Filter
-import org.mixdrinks.domain.FilterGroup
 import org.mixdrinks.dto.CocktailId
 import org.mixdrinks.dto.FilterGroupId
 import org.mixdrinks.dto.FilterId
