@@ -4,23 +4,21 @@ jobs:
   prepare_deploy:
     runs-on: ubuntu-22.04
     steps:
-      - name: "checkout"
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+      - uses: actions-ecosystem/action-bump-semver@v1
+        id: bump-semver
         with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Get next version
-        id: get_next_version
-        uses: thenativeweb/get-next-version@main
-      - name: Print version
-        run: echo ${{ steps.get_next_version.outputs.version }}
-      - name: Write sha to evn as MIX_DRINKS_CORE_VERSION
-        id: step_write_mix_drinks_code_version
+          current_version: ${{ steps.get-latest-tag.outputs.tag }}
+          level: minor
+      - name: "Set output"
+        id: set-output
         run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.get_next_version.outputs.version }}-`echo "${GITHUB_SHA}" | cut -c1-8`" >> $GITHUB_OUTPUT
     outputs:
-      output_write_mix_drinks_code_version: ${{ steps.step_write_mix_drinks_code_version.outputs.MIX_DRINKS_CORE_VERSION }}
+      output_write_mix_drinks_code_version: ${{ steps.set-output.outputs.MIX_DRINKS_CORE_VERSION }}
   deploy:
-    needs: [prepare_deploy]
+    needs: [ prepare_deploy ]
     runs-on: macos-12
     steps:
       - name: Print MIX_DRINKS_CORE_VERSION
