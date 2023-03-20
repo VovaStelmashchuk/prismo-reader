@@ -2,40 +2,15 @@ name: Deploy to Maven Central release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 
 jobs:
-  prepare_deploy:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: "checkout"
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Get next version
-        id: get_next_version
-        uses: thenativeweb/get-next-version@main
-      - name: Print version
-        run: echo ${{ steps.get_next_version.outputs.version }}
-      - name: Write sha to evn as MIX_DRINKS_CORE_VERSION
-        id: step_write_mix_drinks_code_version
-        run: echo "MIX_DRINKS_CORE_VERSION=${{ steps.get_next_version.outputs.version }}" >> $GITHUB_OUTPUT
-      - name: Create tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: ${{ steps.get_next_version.outputs.version }}
-          tag_exists_error: true
-          message: "Latest release"
-    outputs:
-      output_write_mix_drinks_code_version: ${{ steps.step_write_mix_drinks_code_version.outputs.MIX_DRINKS_CORE_VERSION }}
   deploy:
-    needs: [ prepare_deploy ]
     runs-on: macos-12
     steps:
       - name: Print MIX_DRINKS_CORE_VERSION
-        run: echo ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
+        run: echo ${{ github.ref_name }}
       - name: "checkout"
         uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -46,7 +21,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
         env:
-          MIX_DRINKS_CORE_VERSION: ${{ needs.prepare_deploy.outputs.output_write_mix_drinks_code_version }}
+          MIX_DRINKS_CORE_VERSION: ${{ github.ref_name }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PRIVATE_PASSWORD: ${{ secrets.GPG_PRIVATE_PASSWORD }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
