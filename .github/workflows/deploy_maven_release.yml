@@ -1,9 +1,8 @@
 name: Deploy to Maven Central release
 
 on:
-  push:
+  create:
     tags:
-      - '*'
 
 jobs:
   deploy:
