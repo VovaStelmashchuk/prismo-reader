@@ -29,7 +29,7 @@ DTO об'єкти, промарковані анотаціями для сері
 ```kotlin
 val commonMain by getting {
   dependencies {
-    implementation("org.mixdrinks:core:0.8.1-777512bd")
+    implementation("org.mixdrinks:core:<version>")
   }
 }
 ```
@@ -37,6 +37,10 @@ val commonMain by getting {
 ##### Android / JVM
 ```kotlin
 dependencies {
-  implementation("org.mixdrinks:core-jvm:0.8.1-777512bd")
+  implementation("org.mixdrinks:core-jvm:<version>")
 }
 ```
+
+##### Versions
+For use stable version use repository tags, example `1.7.0`
+Also our ci generate the version for each pull request the version has the following format `<last_tag>-<commit_shart_sha>`, example `1.7.0-fedcba9`
