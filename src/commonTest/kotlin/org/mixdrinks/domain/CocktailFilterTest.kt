@@ -16,6 +16,24 @@ class CocktailFilterTest {
     }
 
     @Test
+    fun `Verify cocktail filter throw error in case when params ids not contains into filter meta info`() {
+        val cocktailSelector = CocktailSelector(
+            listOf(
+                createFilterGroup(1) {
+                    add(createFilterItem(11, listOf(11_1)))
+                    add(createFilterItem(12, listOf(12_1)))
+                }
+            )
+        )
+
+        assertFailsWith<IllegalStateException> {
+            cocktailSelector.getCocktailIds(
+                mapOf(FilterGroupId(1) to listOf(FilterId(19)))
+            )
+        }
+    }
+
+    @Test
     fun `Verify cocktail filter return ids from one filter`() {
         val cocktailSelector = CocktailSelector(
             listOf(

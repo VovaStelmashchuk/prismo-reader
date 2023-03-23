@@ -30,6 +30,7 @@ class CocktailSelector(
                 val filterGroup = filterMetaInfo.find { it.id == filterGroupId } ?: return@map emptyList<CocktailId>()
                 val selectedFilters = filterGroup.filters.filter { filterIds.contains(it.id) }
                 when (selectedFilters.size) {
+                    0 -> error("Filter group $filterGroupId empty or not contains filter ids $filterIds")
                     1 -> {
                         selectedFilters.first().cocktailIds
                     }
